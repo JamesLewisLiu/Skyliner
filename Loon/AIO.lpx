@@ -1,0 +1,26 @@
+#!name = AIO
+#!loon_version = 3.5.1(978)
+
+[Rule]
+DOMAIN,afd.baidu.com,REJECT
+DOMAIN,mobads.baidu.com,REJECT
+DOMAIN,adservice.sigmob.cn,REJECT
+DOMAIN,ctrace.yg84.com,REJECT
+DOMAIN,mobads-logs.baidu.com,REJECT
+DOMAIN,adx.yg84.com,REJECT
+DOMAIN,atrace.chelaile.net.cn,REJECT
+DOMAIN,qbad.sginput.qq.com,REJECT
+DOMAIN,tangram.e.qq.com,REJECT
+DOMAIN,sdkreport.e.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+
+[Rewrite]
+request if ${url} ~= /^https?:\/\/[eE][cC][oO][mM]\.[mM][aA][pP]\.[bB][aA][iI][dD][uU]\.[cC][oO][mM](?::\d+)?\/ad-ops\/afd\/entry(?:\?[^#]*)?$/ then reject(503)
+request if ${url} ~= /^https?:\/\/[eE][cC][oO][mM]\.[mM][aA][pP]\.[bB][aA][iI][dD][uU]\.[cC][oO][mM](?::\d+)?\/ad-ops\/afd\/material_async(?:\?[^#]*)?$/ then reject(503)
+request if ${url} ~= /^https?:\/\/(?:api\.chelaile\.net\.cn|cdn\.api\.chelaileapp\.cn)(?::\d+)?\/adpub\/sdk\/adConfig(?:\?.*)?$/i then reject(503)
+request if ${url} ~= /^https?:\/\/(?:api\.chelaile\.net\.cn|cdn\.api\.chelaileapp\.cn)(?::\d+)?\/adpub\/h5\/detail_more\/get(?:\?.*)?$/i then reject(503)
+request if ${request.method} == "POST" && ${url} ~= /^https:\/\/(?:get\.shouji\.sogou\.com|sec\.sginput\.qq\.com|worldwide\.sogou\.com)(?::443)?\/q(?:\?|$)/i && ${request.header['Content-Type']} ~= /^\s*application\/(?:octet-stream|proto)\s*(?:;.*)?$/i && ${request.header['S-COOKIE']} == null then reject(503)
+request if ${request.method} == "POST" && ${url} ~= /^https?:\/\/swc\.pinyin\.sogou\.com(?::(?:80|443))?\/swc(?:\.php|\/0)(?:\?|$)/i then reject(503)
+
+[Mitm]
+hostname = ecom.map.baidu.com,api.chelaile.net.cn,cdn.api.chelaileapp.cn,get.shouji.sogou.com,sec.sginput.qq.com,worldwide.sogou.com,swc.pinyin.sogou.com

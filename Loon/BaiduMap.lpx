@@ -1,0 +1,15 @@
+#!name = BaiduMap
+#!loon_version = 3.5.1(978)
+
+
+[Rule]
+DOMAIN,afd.baidu.com,REJECT
+DOMAIN,mobads.baidu.com,REJECT
+DOMAIN,adservice.sigmob.cn,REJECT
+
+[Rewrite]
+request if ${url} ~= /^https?:\/\/[eE][cC][oO][mM]\.[mM][aA][pP]\.[bB][aA][iI][dD][uU]\.[cC][oO][mM](?::\d+)?\/ad-ops\/afd\/entry(?:\?[^#]*)?$/ then reject(503)
+request if ${url} ~= /^https?:\/\/[eE][cC][oO][mM]\.[mM][aA][pP]\.[bB][aA][iI][dD][uU]\.[cC][oO][mM](?::\d+)?\/ad-ops\/afd\/material_async(?:\?[^#]*)?$/ then reject(503)
+
+[Mitm]
+hostname = ecom.map.baidu.com

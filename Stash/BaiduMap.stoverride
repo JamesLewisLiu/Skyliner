@@ -1,0 +1,13 @@
+name: "BaiduMap"
+rules:
+  - "DOMAIN,afd.baidu.com,REJECT"
+  - "DOMAIN,mobads.baidu.com,REJECT"
+  - "DOMAIN,adservice.sigmob.cn,REJECT"
+http:
+  force-http-engine:
+    - "ecom.map.baidu.com:80"
+  mitm:
+    - "ecom.map.baidu.com:*"
+  url-rewrite:
+    - "^https?://[eE][cC][oO][mM]\\.[mM][aA][pP]\\.[bB][aA][iI][dD][uU]\\.[cC][oO][mM](?::\\d+)?/ad-ops/afd/entry(?:\\?[^#]*)?$ - reject"
+    - "^https?://[eE][cC][oO][mM]\\.[mM][aA][pP]\\.[bB][aA][iI][dD][uU]\\.[cC][oO][mM](?::\\d+)?/ad-ops/afd/material_async(?:\\?[^#]*)?$ - reject"

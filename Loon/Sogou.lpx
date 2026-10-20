@@ -1,0 +1,15 @@
+#!name = Sogou
+#!loon_version = 3.5.1(978)
+
+[Rule]
+DOMAIN,qbad.sginput.qq.com,REJECT
+DOMAIN,tangram.e.qq.com,REJECT
+DOMAIN,sdkreport.e.qq.com,REJECT
+DOMAIN-SUFFIX,gdt.qq.com,REJECT
+
+[Rewrite]
+request if ${request.method} == "POST" && ${url} ~= /^https:\/\/(?:get\.shouji\.sogou\.com|sec\.sginput\.qq\.com|worldwide\.sogou\.com)(?::443)?\/q(?:\?|$)/i && ${request.header['Content-Type']} ~= /^\s*application\/(?:octet-stream|proto)\s*(?:;.*)?$/i && ${request.header['S-COOKIE']} == null then reject(503)
+request if ${request.method} == "POST" && ${url} ~= /^https?:\/\/swc\.pinyin\.sogou\.com(?::(?:80|443))?\/swc(?:\.php|\/0)(?:\?|$)/i then reject(503)
+
+[Mitm]
+hostname = get.shouji.sogou.com, sec.sginput.qq.com, worldwide.sogou.com, swc.pinyin.sogou.com

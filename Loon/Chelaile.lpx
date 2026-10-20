@@ -1,0 +1,17 @@
+#!name = Chelaile
+#!loon_version = 3.5.1(978)
+
+
+[Rule]
+DOMAIN,ctrace.yg84.com,REJECT
+DOMAIN,mobads-logs.baidu.com,REJECT
+DOMAIN,adx.yg84.com,REJECT
+DOMAIN,atrace.chelaile.net.cn,REJECT
+DOMAIN,mobads.baidu.com,REJECT
+
+[Rewrite]
+request if ${url} ~= /^https?:\/\/(?:api\.chelaile\.net\.cn|cdn\.api\.chelaileapp\.cn)(?::\d+)?\/adpub\/sdk\/adConfig(?:\?.*)?$/i then reject(503)
+request if ${url} ~= /^https?:\/\/(?:api\.chelaile\.net\.cn|cdn\.api\.chelaileapp\.cn)(?::\d+)?\/adpub\/h5\/detail_more\/get(?:\?.*)?$/i then reject(503)
+
+[Mitm]
+hostname = api.chelaile.net.cn,cdn.api.chelaileapp.cn

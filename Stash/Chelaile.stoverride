@@ -1,0 +1,17 @@
+name: "Chelaile"
+rules:
+  - "DOMAIN,ctrace.yg84.com,REJECT"
+  - "DOMAIN,mobads-logs.baidu.com,REJECT"
+  - "DOMAIN,adx.yg84.com,REJECT"
+  - "DOMAIN,atrace.chelaile.net.cn,REJECT"
+  - "DOMAIN,mobads.baidu.com,REJECT"
+http:
+  force-http-engine:
+    - "api.chelaile.net.cn:80"
+    - "cdn.api.chelaileapp.cn:80"
+  mitm:
+    - "api.chelaile.net.cn:*"
+    - "cdn.api.chelaileapp.cn:*"
+  url-rewrite:
+    - "(?i)^https?://(?:api\\.chelaile\\.net\\.cn|cdn\\.api\\.chelaileapp\\.cn)(?::\\d+)?/adpub/sdk/adConfig(?:\\?.*)?$ - reject"
+    - "(?i)^https?://(?:api\\.chelaile\\.net\\.cn|cdn\\.api\\.chelaileapp\\.cn)(?::\\d+)?/adpub/h5/detail_more/get(?:\\?.*)?$ - reject"
